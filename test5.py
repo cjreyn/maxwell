@@ -2,6 +2,7 @@ from imutils.object_detection import non_max_suppression
 import cv2
 import sys
 import numpy as np
+import imutils
 
 cascPath = sys.argv[1]
 faceCascade = cv2.CascadeClassifier(cascPath)
@@ -11,8 +12,9 @@ video_capture = cv2.VideoCapture(0)
 while True:
     # Capture frame-by-frame
     ret, frame = video_capture.read()
-
+    frame = imutils.resize(frame, width=min(400, frame.shape[1]))
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
 
     faces = faceCascade.detectMultiScale(
         gray,
